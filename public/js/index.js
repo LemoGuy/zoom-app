@@ -140,12 +140,17 @@ function websdkready() {
       alert("Meeting number or username is empty");
       return false;
     }
-    var signature = ZoomMtg.generateSignature({
-      meetingNumber: meetingConfig.mn,
-      apiKey: API_KEY,
-      apiSecret: API_SECRET,
-      role: meetingConfig.role,
-      success: function (res) {
+
+    $.ajax({
+      url: signUrl,
+      type: "POST",
+      data: JSON.stringify({
+        "meetingNumber": meetingConfig.mn,
+        "role": meetingConfig.role
+      }),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function (data) {
         console.log(res.result);
         meetingConfig.signature = res.result;
         meetingConfig.apiKey = API_KEY;
@@ -155,9 +160,9 @@ function websdkready() {
           testTool.serialize(meetingConfig);
         document.getElementById('copy_link_value').setAttribute('link', joinUrl);
         copyToClipboard('copy_link_value');
-
-      },
+      }
     });
+
   };
 
 }
