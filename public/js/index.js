@@ -150,7 +150,7 @@ function websdkready() {
       }),
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-      success: function (data) {
+      success: function (res) {
         console.log(res.result);
         meetingConfig.signature = res.result;
         meetingConfig.apiKey = API_KEY;
